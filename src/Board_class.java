@@ -2,13 +2,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Board_class extends JFrame{
-	private Game c4;
+	private Controller controller;
 
-	// jacob: im passing the model to the board, so when the player presses a column just use c4.[whatever jeddrick decides the method for handling moves]( the column);
+	// jacob: im passing the controller to the board, so when the player presses a column just use controller.notifyOberverse(col);
 	
-	public Board_class (Game connect4)
+	public Board_class (Controller controller)
 	{
-		this.c4 = connect4;
+		this.controller = controller;
 
 		final JPanel panel = new JPanel();
 		
