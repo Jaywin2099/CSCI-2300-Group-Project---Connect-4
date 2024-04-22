@@ -5,7 +5,7 @@ public class Controller {
     private Connect4GUI gui;
     private Game connect4;
 
-    public Controller (Game c4) {
+    public Controller () {
         // opens the GUI
         this.connect4 = c4;
         this.gui = new Connect4GUI(this);

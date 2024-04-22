@@ -7,5 +7,10 @@ public class Driver {
         }
 
         Game connect4 = new Game();
+
+        // gui
+        Board_class board = new Board_class(connect4);
+
+        
     }
 }
