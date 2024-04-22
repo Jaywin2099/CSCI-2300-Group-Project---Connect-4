@@ -7,10 +7,13 @@ public class Driver {
         }
 
         Game connect4 = new Game();
+        int numPlayers = Integer.parseInt(args[1]);
 
         // gui
         Board_class board = new Board_class(connect4);
 
-        
+        if (numPlayers == 1) {
+            connect
+        }
     }
 }
