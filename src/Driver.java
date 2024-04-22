@@ -6,6 +6,6 @@ public class Driver {
             System.exit(0);
         }
 
-        
+        Game connect4 = new Game();
     }
 }
