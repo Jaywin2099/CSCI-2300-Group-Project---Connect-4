@@ -15,7 +15,7 @@ public class Controller {
 
     public void notifyObservers (int col) {
         for (int i = 0; i < observers.size(); i++) {
-            observers.get(i).update(col, gui);
+            observers.get(i).update(col);
         }
     }
 }

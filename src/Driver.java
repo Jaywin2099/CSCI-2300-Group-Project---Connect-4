@@ -1,4 +1,7 @@
-public class Driver {
+public class Driver implements Observer {
+    private Game connect4;
+    private int numPlayers;
+
     public static void main(String[] args) {
         // expects the number of players passed as argument
         if (args.length != 1) {
@@ -6,14 +9,28 @@ public class Driver {
             System.exit(0);
         }
 
-        Game connect4 = new Game();
-        int numPlayers = Integer.parseInt(args[1]);
+        // gets number of players
+        this.numPlayers = Integer.parseInt(args[1]);
+    
+        // creates game
+        this.connect4 = new Game();
 
-        // gui
-        Board_class board = new Board_class(connect4);
+        // registers game as observer
+        Controller controller = new Controller();
+        controller.register(Game);
 
+        // initiates gui
+        Board_class board = new Board_class(controller);
+    }
+
+    public void update(int col) {
+        // when the gui gets a word, i check if its a one player game
         if (numPlayers == 1) {
-            connect
+            connect4.update(getComputerMove());
         }
+    }
+
+    public int getComputerMove() {
+        return 0;
     }
 }

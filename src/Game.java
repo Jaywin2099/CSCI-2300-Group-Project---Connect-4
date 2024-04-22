@@ -1,5 +1,5 @@
 
-public class Game {
+public class Game implements Observer{
 	int turnsPlayed = 0;
 	Board_class board;
 	
@@ -39,6 +39,9 @@ public class Game {
 		return turnsPlayed % 2; // if odd turn, next turn is player 2, if even player 1
 	}
 	
+	public void update(int col) {
+		// ...
+	}
 }
 
 
