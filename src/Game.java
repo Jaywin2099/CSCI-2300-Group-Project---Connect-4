@@ -12,7 +12,7 @@ public class Game implements Observer{
 
 	public boolean isWin() {
 		if(turnsPlayed > 7) {
-			
+			return false;
 		}
 		else {
 			return false;
