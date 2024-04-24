@@ -2,8 +2,6 @@ import java.util.ArrayList;
 
 public class Controller {
     private ArrayList<Observer> observers;
-    private Board_class gui;
-    private Game connect4;
 
     public Controller () {
         this.observers = new ArrayList<Observer>();
