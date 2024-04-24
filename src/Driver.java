@@ -10,7 +10,7 @@ public class Driver {
         Controller controller = new Controller();
 
         // gets number of players
-        int numPlayers = Integer.parseInt(args[1]);
+        int numPlayers = Integer.parseInt(args[0]);
 
         // initiates gui
         Board_class board = new Board_class(controller);
