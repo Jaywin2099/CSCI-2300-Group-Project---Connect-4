@@ -10,14 +10,14 @@ public class Driver implements Observer {
         }
 
         // gets number of players
-        this.numPlayers = Integer.parseInt(args[1]);
+        numPlayers = Integer.parseInt(args[1]);
     
         // creates game
-        this.connect4 = new Game();
+        connect4 = new Game();
 
         // registers game as observer
         Controller controller = new Controller();
-        controller.register(Game);
+        controller.register(connect4);
 
         // initiates gui
         Board_class board = new Board_class(controller);

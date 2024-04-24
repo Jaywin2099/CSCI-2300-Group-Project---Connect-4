@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Controller {
     private ArrayList<Observer> observers;
-    private Connect4GUI gui;
+    private Board_class gui;
     private Game connect4;
 
     public Controller () {
