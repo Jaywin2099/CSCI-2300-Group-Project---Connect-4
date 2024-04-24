@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class ComputerPlayer implements Observer {
     private Game connect4;
 
@@ -7,6 +9,8 @@ public class ComputerPlayer implements Observer {
     }
 
     public int getMove() {
-        return 0;
+        Random r = new Random();
+
+        return r.nextInt(6);
     }
 }
