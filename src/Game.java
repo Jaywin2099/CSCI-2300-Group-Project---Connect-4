@@ -24,6 +24,7 @@ public class Game implements Observer{
 		if(board[getCurrentPieceRow()][getCurrentPieceCol()+1] == player) {
 			return false;
 		}
+		return false;
 	}
 	
 	public boolean checkHorizontally() {
