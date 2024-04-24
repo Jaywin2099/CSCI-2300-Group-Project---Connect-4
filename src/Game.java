@@ -20,24 +20,18 @@ public class Game implements Observer{
 	}
 	
 	public boolean checkVertically() {
-		
-		if(board[getCurrentPieceRow()][getCurrentPieceCol+1] == )
+		int player = getPlayerCheck();
+		if(board[getCurrentPieceRow()][getCurrentPieceCol()+1] == player) {
+			return false;
+		}
 	}
 	
 	public boolean checkHorizontally() {
-		
+		return false;
 	}
 	
 	public boolean checkDiagonallyUp() {
-		
-	}
-	
-	public boolean checkBottomLeft() {
-		
-	}
-	
-	public boolean checkBottomRight() {
-		
+		return false;
 	}
 	
 	public int getCurrentPieceRow(){
