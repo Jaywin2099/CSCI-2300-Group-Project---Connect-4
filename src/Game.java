@@ -145,6 +145,3 @@ public class Game implements Observer{
 		move(col);
 	}
 }
-
-
-
