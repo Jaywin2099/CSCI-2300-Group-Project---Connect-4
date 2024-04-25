@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class MonteCarloPlayer {
+public class MonteCarloPlayer implements Observer {
 
     private static final int MAX_SIMULATIONS = 1000;
     private Random random;
@@ -8,6 +8,11 @@ public class MonteCarloPlayer {
 
     public MonteCarloPlayer(Game g) {
         this.connect4 = g;
+    }
+
+    public void update (int col) {
+        int move = findBestMove();
+        connect4.move(move);
     }
 
     public int findBestMove() {

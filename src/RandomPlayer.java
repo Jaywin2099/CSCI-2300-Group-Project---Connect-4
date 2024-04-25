@@ -8,7 +8,7 @@ public class RandomPlayer implements Observer {
     }
 
     public void update(int col) {
-        connect4.update(getMove());
+        connect4.move(getMove());
     }
 
     public int getMove() {
