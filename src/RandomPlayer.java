@@ -1,10 +1,13 @@
 import java.util.Random;
 
-public class ComputerPlayer implements Observer {
+public class RandomPlayer implements Observer {
     private Game connect4;
 
+    public RandomPlayer (Game game) {
+        this.connect4 = game;
+    }
+
     public void update(int col) {
-        // when the gui gets a word, i check if its a one player game
         connect4.update(getMove());
     }
 

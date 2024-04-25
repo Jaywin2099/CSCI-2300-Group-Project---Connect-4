@@ -10,6 +10,45 @@ public class Game implements Observer{
 		//this.board = board;
 	}
 
+	public Game () {}
+
+	public Game copy() {
+		// creates new game
+		Game c = new Game();
+		int[][] b = c.getBoard(); // creates a shallow copy of c's board
+		int count = 0;
+
+		for (int i = 0; i < board.length; ++i) {
+			for (int j = 0; j < board[i].length; ++j) {
+				// copies values from each to the corresponding square in the new board
+				b[i][j] = this.board[i][j];
+				
+				if (b[i][j] != 0) {
+					count++;
+				}
+			}
+		}
+
+		c.setTurnsPlayed(count);
+		return c;
+	}
+
+	public void setTurnsPlayed(int turns) {
+		this.turnsPlayed = turns;
+	}
+
+	public boolean isDraw () {
+		for (int i = 0; i < board.length; ++i) {
+			for (int j = 0; j < board[i].length; ++j) {	
+				if (board[i][j] == 0) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	public boolean isWin() {
 		boolean win = false;
 		if(turnsPlayed > 7) {
@@ -129,6 +168,10 @@ public class Game implements Observer{
 	
 	public int getCurrentTurn() {
 		return turnsPlayed;
+	}
+
+	public int[][] getBoard() {
+		return this.board;
 	}
 
 	public void restart() {
