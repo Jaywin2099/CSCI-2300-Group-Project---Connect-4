@@ -3,11 +3,6 @@ public class Game implements Observer{
 	int[][] board = new int[6][7];
 	int lastPiecePlacedRow;
 	int lastPiecePlacedCol;
-	//Board_class board;
-	
-	public Game(Board_class board) {	
-		//this.board = board;
-	}
 
 	public Game () {}
 
