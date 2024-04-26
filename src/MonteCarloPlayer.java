@@ -59,4 +59,8 @@ public class MonteCarloPlayer implements Observer {
 	
 	    return totalScore;
 }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 07b4fbc7722aba2b7c96c8a628ff0e31636ca402
