@@ -23,7 +23,7 @@ public class Driver {
 
         // registers computer player as another observer if the user chose singleplayer
         if (numPlayers == 1) {
-            controller.register(new MonteCarloPlayer(connect4));
+            controller.register(new RandomPlayer(connect4));
         }
     }
 }
