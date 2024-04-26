@@ -16,7 +16,7 @@ public class Driver {
         controller.setGUI(board);
 
         // creates game
-        Game connect4 = new Game(board);
+        Game connect4 = new Game();
 
         // registers game with controller
         controller.register(connect4);

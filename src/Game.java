@@ -3,11 +3,6 @@ public class Game implements Observer{
 	int[][] board = new int[6][7];
 	int lastPiecePlacedRow;
 	int lastPiecePlacedCol;
-	//Board_class board;
-	
-	public Game(Board_class board) {	
-		//this.board = board;
-	}
 
 	public Game () {}
 
@@ -145,7 +140,7 @@ public class Game implements Observer{
 	public void move(int column) {
 		lastPiecePlacedCol = column;
 		if(getPlayerCheck() == 0) { //player 1 represented with 1
-			for(int i = 0; i < 7; i++) {
+			for(int i = 5; i >= 0; i--) {
 				if (board[i][column] == 0){
 					board[i][column] = 1;
 					lastPiecePlacedRow = i;
@@ -154,7 +149,7 @@ public class Game implements Observer{
 			}
 		}
 		else {//player 2 represented with 2
-			for(int i = 0; i < 7; i++) {
+			for(int i = 5; i >= 0; i--) {
 				if (board[i][column] == 0){
 					board[i][column] = 2;
 					lastPiecePlacedRow = i;
