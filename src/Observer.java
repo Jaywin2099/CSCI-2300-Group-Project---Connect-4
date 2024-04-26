@@ -1,3 +1,3 @@
 public interface Observer {
-    public void update(int col);
+    public int[][] update(int col);
 }

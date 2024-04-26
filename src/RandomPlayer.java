@@ -7,8 +7,8 @@ public class RandomPlayer implements Observer {
         this.connect4 = game;
     }
 
-    public void update(int col) {
-        connect4.move(getMove());
+    public int[][] update(int col) {
+        return connect4.update(getMove());
     }
 
     public int getMove() {

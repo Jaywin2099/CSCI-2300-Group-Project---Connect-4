@@ -10,9 +10,10 @@ public class MonteCarloPlayer implements Observer {
         this.connect4 = g;
     }
 
-    public void update (int col) {
+    public int[][] update (int col) {
         int move = findBestMove();
-        connect4.move(move);
+
+        return connect4.update(move);
     }
 
     public int findBestMove() {

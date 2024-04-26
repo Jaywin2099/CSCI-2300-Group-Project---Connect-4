@@ -183,7 +183,10 @@ public class Game implements Observer{
 		return turnsPlayed % 2;
 	}
 	
-	public void update(int col) {
+	public int[][] update(int col) {
 		move(col);
+
+		// returns a copy of the board
+		return copy().getBoard(); // error?
 	}
 }
