@@ -26,7 +26,7 @@ public class Board_class extends JFrame {
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-                boardButtons[row][col] = new JButton(); // Text on button shows the column number
+                boardButtons[row][col] = new JButton(); 
                 boardButtons[row][col].setBackground(Color.WHITE);
                 boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
 
@@ -37,36 +37,35 @@ public class Board_class extends JFrame {
 
         JPanel columnPanel = new JPanel(new GridLayout(1, COLS));
         for (int col = 0; col < COLS; col++) {
-            columnButtons[col] = new JButton("" + col); // Text on button shows the column number
+            columnButtons[col] = new JButton("" + col); 
             columnButtons[col].setBackground(Color.WHITE);
             columnButtons[col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
             columnButtons[col].addActionListener(new ActionListener() {
 
-                public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
 
-                    JButton clickedButton = (JButton) e.getSource();
-                    int col = -1;
-                    for (int c = 0; c < COLS; c++) {
-                        if (clickedButton == columnButtons[c]) {
-                            col = c;
-                            break;
-                        }
-                    }
-                    // Notify controller about the button click
-                    if (col != -1) {
-                        controller.notifyObservers(col);
-
-                    }
-                }
-            });
+        JButton clickedButton = (JButton) e.getSource();
+        int col = -1;
+        for (int c = 0; c < COLS; c++) {
+            if (clickedButton == columnButtons[c]) {
+                col = c;
+                break;
+            }
+        }
+        // Notify controller about the button click
+        if (col != -1) {
+            controller.notifyObservers(col);
+        	}
+    	}
+    });
             columnPanel.add(columnButtons[col]);
         }
         mainPanel.add(boardPanel, BorderLayout.CENTER);
         mainPanel.add(columnPanel, BorderLayout.SOUTH);
 
-        add(mainPanel); // Add panel to the frame
-        pack(); // Pack the frame to adjust its size
-        setVisible(true); // Make the frame visible
+        add(mainPanel); 
+        pack(); 
+        setVisible(true); 
     }
 
     public void updatePieces (int[][] board) {
@@ -76,11 +75,19 @@ public class Board_class extends JFrame {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
                 if (board[i][j] == 1) {
-                    boardButtons[i][j].setBackground(lightRed);
+                    boardButtons[i][j].setBackground(Color.red);
+                    
+                    
+                     
                 } else if (board[i][j] == 2) {
-                    boardButtons[i][j].setBackground(lightBlue);
+                    boardButtons[i][j].setBackground(Color.blue);
+                    
                 }
+                
             }
+            
         }
+        repaint();
+        pack();
     }
 }
