@@ -1,1 +1,4 @@
 /bin/
+
+# ignores all java class files
+*.class
