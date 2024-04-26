@@ -8,6 +8,7 @@ public class MonteCarloPlayer implements Observer {
 
     public MonteCarloPlayer(Game g) {
         this.connect4 = g;
+        this.random = new Random();
     }
 
     public int[][] update (int col) {
@@ -28,6 +29,8 @@ public class MonteCarloPlayer implements Observer {
                 bestMove = move;
             }
         }
+
+        System.out.println(bestMove);
 
         return bestMove;
     }
