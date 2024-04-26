@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 
 public class Board_class extends JFrame {
-    private static final int ROWS = 7;
+    private static final int ROWS = 6;
     private static final int COLS = 7;
     private static final int CELL_SIZE = 100;
     private JButton[] columnButtons; 
@@ -14,6 +14,8 @@ public class Board_class extends JFrame {
 
     public Board_class(Controller controller) {
         this.controller = controller;
+        Color lightRed = new Color(255, 102, 102);
+        Color lightBlue = new Color(102, 178, 255);
 
         setTitle("Connect Four");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,29 +38,31 @@ public class Board_class extends JFrame {
             boardPanel.add(boardButtons[row][col]);
         }
         }
+        
         JPanel columnPanel = new JPanel(new GridLayout(1, COLS));
         for (int col = 0; col < COLS; col++) {
             columnButtons[col] = new JButton("" + col); // Text on button shows the column number
             columnButtons[col].setBackground(Color.WHITE);
             columnButtons[col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
             columnButtons[col].addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    // Get the button that was clicked
-                    JButton clickedButton = (JButton) e.getSource();
-                    // Find the column index of the clicked button
-                    int col = -1;
-                    for (int c = 0; c < COLS; c++) {
-                        if (clickedButton == columnButtons[c]) {
-                            col = c;
-                            break;
-                        }
-                    }
-                    // Notify controller about the button click
-                    if (col != -1) {
-                        controller.notifyObservers(col);
-                    }
-                }
-            });
+                
+	public void actionPerformed(ActionEvent e) {
+     
+        JButton clickedButton = (JButton) e.getSource();
+        int col = -1;
+        for (int c = 0; c < COLS; c++) {
+            if (clickedButton == columnButtons[c]) {
+                col = c;
+                break;
+            }
+        }
+        // Notify controller about the button click
+        if (col != -1) {
+            controller.notifyObservers(col);
+            
+        }
+    }
+});
             columnPanel.add(columnButtons[col]);
         }
         mainPanel.add(boardPanel, BorderLayout.CENTER);
