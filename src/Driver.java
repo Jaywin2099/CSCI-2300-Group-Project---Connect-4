@@ -6,17 +6,13 @@ public class Driver {
             System.exit(0);
         }
 
-        // gets number of players
         int numPlayers = Integer.parseInt(args[0]);
-
 
         // creates controller
         Controller controller = new Controller();
 
         // initiates gui
         Board_class board = new Board_class(controller);
-    
-        // gives board to controller
         controller.setGUI(board);
 
         // creates game
