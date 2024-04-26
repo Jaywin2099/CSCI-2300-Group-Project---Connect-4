@@ -4,49 +4,69 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Board_class extends JFrame{
-	private static final int ROWS = 6;
+public class Board_class extends JFrame {
+    private static final int ROWS = 7;
     private static final int COLS = 7;
     private static final int CELL_SIZE = 100;
-    private JButton[][] buttons;
-    private Game c4;
+    private JButton[] columnButtons; 
+    private JButton[][] boardButtons; 
+    private Controller controller;
 
-	// jacob: im passing the model to the board, so when the player presses a column just use c4.[whatever jeddrick decides the method for handling moves]( the column);
-	
-	public Board_class (Game connect4)
-	{
-		this.c4 = connect4;
-		setTitle("Connect Four");
+    public Board_class(Controller controller) {
+        this.controller = controller;
+
+        setTitle("Connect Four");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        columnButtons = new JButton[COLS]; // Initialize columnButtons array
+        boardButtons = new JButton[ROWS][COLS];
         
+        
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        
+        JPanel boardPanel = new JPanel(new GridLayout(ROWS, COLS));
+        
+        for (int row = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLS; col++) {
+        	boardButtons[row][col] = new JButton(); // Text on button shows the column number
+        	boardButtons[row][col].setBackground(Color.WHITE);
+        	boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
+        	
+        	boardButtons[row][col].setEnabled(false);
+            boardPanel.add(boardButtons[row][col]);
+        }
+        }
+        JPanel columnPanel = new JPanel(new GridLayout(1, COLS));
+        for (int col = 0; col < COLS; col++) {
+            columnButtons[col] = new JButton("" + col); // Text on button shows the column number
+            columnButtons[col].setBackground(Color.WHITE);
+            columnButtons[col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
+            columnButtons[col].addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Get the button that was clicked
+                    JButton clickedButton = (JButton) e.getSource();
+                    // Find the column index of the clicked button
+                    int col = -1;
+                    for (int c = 0; c < COLS; c++) {
+                        if (clickedButton == columnButtons[c]) {
+                            col = c;
+                            break;
+                        }
+                    }
+                    // Notify controller about the button click
+                    if (col != -1) {
+                        controller.notifyObservers(col);
+                    }
+                }
+            });
+            columnPanel.add(columnButtons[col]);
+        }
+        mainPanel.add(boardPanel, BorderLayout.CENTER);
+        mainPanel.add(columnPanel, BorderLayout.SOUTH);
 
-		final JPanel panel = new JPanel(new GridLayout(ROWS, COLS));
-		for (int col = 0; col < COLS; col++) {
-		    buttons[ROWS][col] = new JButton();
-		    buttons[ROWS][col].setBackground(Color.WHITE);
-		    buttons[ROWS][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
-		    buttons[ROWS][col].addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-		// need to a method to move the piece to the bottom int lowestEmptyRow = getLowestEmptyRow(column);
-			     
-		//if {
-		// } else {
-				// if Column is full, handle accordingly
-			    // Maybe display a message or take another action
-				
-				}
-		    
-		    });
-		}
-	
-		      
-		    panel.add(buttons[ROWS][COLS]);
+        add(mainPanel); // Add panel to the frame
+        pack(); // Pack the frame to adjust its size
+        setVisible(true); // Make the frame visible
+    }
 }
-}
-	
-
-
