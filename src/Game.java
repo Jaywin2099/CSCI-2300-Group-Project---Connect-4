@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Game implements Observer {
 	int turnsPlayed = 0;
 	int[][] board = new int[6][7];
@@ -46,8 +48,7 @@ public class Game implements Observer {
 	public boolean isWin() {
 		boolean win = false;
 		if (turnsPlayed > 7) {
-			if (checkVertically() == true || checkHorizontally() == true || checkDiagonallyUp() == true
-					|| checkDiagonallyDown() == true) { // add diagonal win condition
+			if (checkVertically() == true || checkHorizontally() == true || checkDiagonallyUp() || checkDiagonallyDown()) { // add diagonal win condition
 				win = true;
 			}
 		} else {
@@ -162,6 +163,23 @@ public class Game implements Observer {
 		return lastPiecePlacedCol;
 	}
 
+	public Boolean isFull (int col) {
+		if (board[board.length - 1][col] != 0) return true;
+		else return false;
+	}
+
+	public ArrayList<Integer> validMoves() {
+		ArrayList<Integer> moves = new ArrayList<Integer>();
+
+		for (int i = 0; i < board[0].length; i++) {
+			if (board[board.length - 1][i] == 0) {
+				moves.add(i);
+			}
+		}
+
+		return moves;
+	}
+
 	public void move(int column) {
 		lastPiecePlacedCol = column;
 		if (getPlayerCheck() == 0) { // player 1 represented with 1
@@ -210,8 +228,6 @@ public class Game implements Observer {
 
 	public int[][] update(int col) {
 		move(col);
-		System.out.println("Vertically: " + Boolean.toString(checkVertically()) + "\n" + "Horizontally: "
-				+ Boolean.toString(checkHorizontally()));
 
 		// returns a copy of the board
 		return copy().getBoard();

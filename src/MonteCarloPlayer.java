@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MonteCarloPlayer implements Observer {
 
-    private static final int MAX_SIMULATIONS = 1000;
+    private static final int MAX_SIMULATIONS = 500;
     private Random random;
     private Game connect4;
 
@@ -18,19 +19,18 @@ public class MonteCarloPlayer implements Observer {
     }
 
     public int findBestMove() {
-        int[] legalMoves = {0, 1, 2, 3, 4, 5, 6};
-        int bestMove = legalMoves[0];
+        ArrayList<Integer> legalMoves = connect4.validMoves();
+        int bestMove = legalMoves.get(0);
         int bestScore = Integer.MIN_VALUE;
 
         for (int move : legalMoves) {
             int score = simulateMove(move);
+            
             if (score > bestScore) {
                 bestScore = score;
                 bestMove = move;
             }
         }
-
-        System.out.println(bestMove);
 
         return bestMove;
     }
@@ -41,22 +41,28 @@ public class MonteCarloPlayer implements Observer {
 	    for (int i = 0; i < MAX_SIMULATIONS; i++) {
 	        int score = 0;
 	        Game copy = connect4.copy(); // Make a copy of the current game state
-	        copy.move(move); // Simulate making the move
-	
+	        
+            copy.move(move); // Simulate making the move
+
 	        // Simulate random moves until the game ends
 	        while (!copy.isDraw()) {
-	            int randomMove = random.nextInt(6);
-	            copy.move(randomMove);
+                ArrayList<Integer> moves = copy.validMoves();
+
+                int randomMove = random.nextInt(moves.size());
+                
+                // does that move
+	            copy.move(moves.get(randomMove));
 	
 	            if (copy.isWin()) {
-	                if (copy.getCurrentTurn() % 2 == 0) {
+	                if (copy.getLastPlayerCheck() == 2) {
 	                    score = 1;
 	                } else {
 	                    score = -1;
 	                }
+                    break;
 	            }
 	        }
-	
+
 	        // adds the final game state score to total
 	        totalScore += score;
 	    }
