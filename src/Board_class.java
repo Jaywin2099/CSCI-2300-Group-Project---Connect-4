@@ -26,7 +26,8 @@ public class Board_class extends JFrame {
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-                boardButtons[row][col] = new JButton(); 
+                boardButtons[row][col] = new JButton();
+                boardButtons[row][col].setOpaque(true);
                 boardButtons[row][col].setBackground(Color.WHITE);
                 boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
 
@@ -71,9 +72,6 @@ public class Board_class extends JFrame {
     public void updatePieces (int[][] board) {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
-                
-                boardButtons[i][j].setOpaque(true);
-
                 if (board[i][j] == 1) {
                     boardButtons[ROWS - i - 1][j].setBackground(Color.red);
                 } else if (board[i][j] == 2) {
