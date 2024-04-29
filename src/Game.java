@@ -4,8 +4,7 @@ public class Game implements Observer {
 	int lastPiecePlacedRow;
 	int lastPiecePlacedCol;
 
-	public Game() {
-	}
+	public Game() {}
 
 	public Game copy() {
 		// creates new game
@@ -88,9 +87,11 @@ public class Game implements Observer {
 	}
 
 	public boolean checkHorizontally() {
-		int player = getLastPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck();
+
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
+
 		boolean win = true;
 
 		// checks the next three pieces
@@ -103,10 +104,14 @@ public class Game implements Observer {
 			}
 		}
 
-		else { // checks left
+		// resest win check for col 3 since it can connect 4 from left And right
+		if (currentCol == 3) win = true;
+
+		if (currentCol >= 3) { // checks left
 			for (int i = 1; i <= 3; i++) {
 				if (board[currentRow][currentCol - i] != player) {
 					win = false;
+					break;
 				}
 			}
 		}
