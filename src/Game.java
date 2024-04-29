@@ -63,34 +63,49 @@ public class Game implements Observer{
 		int currentCol = getCurrentPieceCol();
 		
 		//checks the next three pieces
-		if(board[currentRow][currentCol+1] == player && board[currentRow][currentCol+2] == player 
-				&& board[currentRow][currentCol+3] == player) { // checks up
+		if(currentRow < 3) { //checks up
+			for(int i = 1; i <= 3; i++) {
+				if(board[currentRow+i][currentCol] != player) {
+					return false;
+				}
+			}
 			return true;
 		}
 		
-		else if(board[currentRow][currentCol-1] == player && board[currentRow][currentCol-2] == player 
-				&& board[currentRow][currentCol-3] == player) { // checks down
+		else{ //checks down
+			for(int i = 1; i <= 3; i++) {
+				if(board[currentRow-i][currentCol] != player) {
+					return false;
+				}
+			}
 			return true;
 		}
-		return false;
 	}
 	
 	public boolean checkHorizontally() {
 		int player = getPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
+		boolean win = true;
 		
 		//checks the next three pieces
-		if(board[currentRow+1][currentCol] == player && board[currentRow+2][currentCol] == player 
-				&& board[currentRow+3][currentCol] == player) { // checks right
-			return true;
+		if(currentCol <= 3) { //checks right
+			for(int i = 1; i <= 3; i++) {
+				if(board[currentRow][currentCol+i] != player) {
+					win = false;
+					break;
+				}
+			}
 		}
 		
-		else if(board[currentRow-1][currentCol] == player && board[currentRow-2][currentCol] == player 
-				&& board[currentRow-3][currentCol] == player) { // checks left
-			return true;
+		else{ //checks left
+			for(int i = 1; i <= 3; i++) {
+				if(board[currentRow][currentCol-i] != player) {
+					win = false;
+				}
+			}
 		}
-		return false;
+		return win;
 	}
 	
 	public boolean checkDiagonallyUp() {
