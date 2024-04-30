@@ -65,8 +65,9 @@ public class Game implements Observer {
 
 		// note from jacob: why do we check up since there's no way for there to be a on
 		// top? considering that this piece we're checking is the newest piece placed?
-
+		//Jeddrick: Good point, we can get rid of that then
 		// checks the next three pieces
+		/*
 		if (currentRow < 3) { // checks up
 			for (int i = 1; i <= 3; i++) {
 
@@ -76,20 +77,20 @@ public class Game implements Observer {
 			}
 			return true;
 		}
-
-		else { // checks down
+		
+		else { // checks down */
 			for (int i = 1; i <= 3; i++) {
 				if (board[currentRow - i][currentCol] != player) {
 					return false;
 				}
 			}
 			return true;
-		}
+		//}
 	}
 
 	public boolean checkHorizontally() {
 		int player = getLastPlayerCheck();
-
+		
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
@@ -105,7 +106,7 @@ public class Game implements Observer {
 			}
 		}
 
-		// resest win check for col 3 since it can connect 4 from left And right
+		// reset win check for col 3 since it can connect 4 from left And right
 		if (currentCol == 3) win = true;
 
 		if (currentCol >= 3) { // checks left
