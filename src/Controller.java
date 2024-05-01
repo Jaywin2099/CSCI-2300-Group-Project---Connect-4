@@ -16,13 +16,8 @@ public class Controller {
         for (int i = 0; i < observers.size(); i++) {
             int[][] board = observers.get(i).update(col);
 
-            if (board.length == 0) {
-                gui.onWin();
-                break;
-            } else {
-                // sends board to gui to update view
-                gui.updatePieces(board);
-            }
+            // sends board to gui to update view
+            gui.updatePieces(board);
         }
     }
     

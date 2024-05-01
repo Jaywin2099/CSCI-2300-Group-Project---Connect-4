@@ -239,13 +239,7 @@ public class Game implements Observer {
 	}
 
 	public int[][] update(int col) {
-		int [][] n = new int[0][0];
-
 		move(col);
-
-		if (isWin() || isDraw()) {
-			return n;
-		}
 
 		// returns a copy of the board
 		return copy().getBoard();
