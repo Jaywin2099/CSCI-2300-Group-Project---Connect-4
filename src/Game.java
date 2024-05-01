@@ -63,6 +63,8 @@ public class Game implements Observer {
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
+		if (currentRow < 3) return false;
+
 		for (int i = 1; i <= 3; i++) {
 			if (board[currentRow - i][currentCol] != player) {
 				return false;
@@ -242,7 +244,13 @@ public class Game implements Observer {
 	}
 
 	public int[][] update(int col) {
+		int [][] n = new int[0][0];
+
 		move(col);
+
+		if (isWin() || isDraw()) {
+			return n;
+		}
 
 		// returns a copy of the board
 		return copy().getBoard();
