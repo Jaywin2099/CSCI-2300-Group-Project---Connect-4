@@ -79,6 +79,14 @@ public class Board_class extends JFrame {
                 	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
 
                 }
+                if (board[i][j]>=3) {
+                	boardButtons[ROWS - i - 1][j].setBackground(Color.red);
+                	onWin();
+                }
+                if (board[i][j]>=4) {
+                	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
+                	onWin();
+                }
                 
                 boardButtons[i][j].setVisible(true);
                 
