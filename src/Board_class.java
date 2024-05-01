@@ -73,13 +73,17 @@ public class Board_class extends JFrame {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
                 if (board[i][j] == 1) {
-                    boardButtons[ROWS - i - 1][j].setBackground(Color.red);
-                } else if (board[i][j] == 2) {
-                    boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
-                }
 
+                	boardButtons[ROWS - i - 1][j].setBackground(Color.red);
+                } else if (board[i][j] == 2) {
+                	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
+
+                }
+                
                 boardButtons[i][j].setVisible(true);
+                
             }
+            
         }
 
         for (int i = 0; i < columnButtons.length; i++) {
