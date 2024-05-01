@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class MonteCarloPlayer implements Observer {
 
-    private static final int MAX_SIMULATIONS = 500;
+    private static final int MAX_SIMULATIONS = 1000;
     private Random random;
     private Game connect4;
 
@@ -46,14 +46,8 @@ public class MonteCarloPlayer implements Observer {
 
 	        // Simulate random moves until the game ends
 	        while (!copy.isDraw()) {
-                ArrayList<Integer> moves = copy.validMoves();
-
-                int randomMove = random.nextInt(moves.size());
-                
-                // does that move
-	            copy.move(moves.get(randomMove));
-	
-	            if (copy.isWin()) {
+                // checks for win
+                if (copy.isWin()) {
 	                if (copy.getLastPlayerCheck() == 2) {
 	                    score = 1;
 	                } else {
@@ -61,6 +55,13 @@ public class MonteCarloPlayer implements Observer {
 	                }
                     break;
 	            }
+
+                ArrayList<Integer> moves = copy.validMoves();
+
+                int randomMove = random.nextInt(moves.size());
+                
+                // does that move
+	            copy.move(moves.get(randomMove));
 	        }
 
 	        // adds the final game state score to total

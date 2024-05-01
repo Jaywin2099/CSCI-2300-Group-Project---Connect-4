@@ -19,13 +19,20 @@ public class Controller {
             // sends board to gui to update view
             gui.updatePieces(board);
             
+            // checks for win
             Boolean win = false;
-            for (int k = 0; k < 0; k++) {
-                for (int j = 0; j < 0; j++) {
-                    if (board[k][j] > 2) win = true;
+            for (int k = 0; k < board.length; k++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    if (board[k][j] > 2) {
+                        win = true;
+                        System.out.println("Value found in winning coord: " + Integer.toString(board[k][j]));
+                        break;
+                    }
                 }
-            }
 
+                if (win) break;
+            }
+            
             if (win) break;
         }
     }

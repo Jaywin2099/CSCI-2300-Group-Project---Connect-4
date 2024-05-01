@@ -73,28 +73,26 @@ public class Board_class extends JFrame {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
                 if (board[i][j] == 1) {
-
                 	boardButtons[ROWS - i - 1][j].setBackground(Color.red);
+                
                 } else if (board[i][j] == 2) {
                 	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
-
-                }
-                if (board[i][j]==3) {
+                
+                } else if (board[i][j]==3) {
                 	boardButtons[ROWS - i - 1][j].setBackground(Color.red);
                 	setTitle("Player 1 wins");
                 	onWin();
-                }
-                if (board[i][j]==4) {
+                
+                } else if (board[i][j]==4) {
                 	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
                 	setTitle("Player 2 wins");
                 	onWin();
-                	
+                } else if (board[i][j] != 0) {
+                    System.out.println("error, board assigned to value greater than 4");
                 }
                 
                 boardButtons[i][j].setVisible(true);
-                
             }
-            
         }
 
         for (int i = 0; i < columnButtons.length; i++) {
@@ -112,8 +110,5 @@ public class Board_class extends JFrame {
         for (int i = 0; i < columnButtons.length; i++) {
             columnButtons[i].setEnabled(false);
         }
-
-        // change title to "# - 2 win!"
-
     }
 }

@@ -5,9 +5,10 @@ public class Game implements Observer {
 	int[][] board = new int[6][7];
 	int lastPiecePlacedRow;
 	int lastPiecePlacedCol;
+	private Boolean gameDone = false;
 
 	public Game() {}
-	
+
 	public Game copy() {
 		// creates new game
 		Game c = new Game();
@@ -34,11 +35,9 @@ public class Game implements Observer {
 	}
 
 	public boolean isDraw() {
-		for (int i = 0; i < board.length; ++i) {
-			for (int j = 0; j < board[i].length; ++j) {
-				if (board[i][j] == 0) {
-					return false;
-				}
+		for (int i = 0; i < board[0].length; ++i) {
+			if (board[board.length - 1][i] == 0) {
+				return false;
 			}
 		}
 
@@ -62,13 +61,16 @@ public class Game implements Observer {
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
-		if (currentRow < 3) return false;
+		if (currentRow < 3)
+			return false;
 
 		for (int i = 1; i <= 3; i++) {
 			if (board[currentRow - i][currentCol] != player) {
 				return false;
 			}
 		}
+
+		System.out.println("win found vertically");
 		return true;
 	}
 
@@ -87,8 +89,9 @@ public class Game implements Observer {
 				}
 			}
 		}
+		
 		// reset win check for col 3 since it can connect 4 from left And right
-		if (currentCol == 3) win = true;
+		else if (currentCol == 3) win = true;
 
 		if (currentCol >= 3) { // checks left
 			for (int i = 1; i <= 3; i++) {
@@ -98,6 +101,8 @@ public class Game implements Observer {
 				}
 			}
 		}
+
+		if (win) System.out.println("win found horizontally");
 		return win;
 	}
 
@@ -109,8 +114,7 @@ public class Game implements Observer {
 		// checks the next three pieces
 		if (currentRow > 2) {
 			win = false;
-		}
-		else {
+		} else {
 			if (currentCol <= 3) { // checks up right
 				for (int i = 1; i <= 3; i++) {
 					if (board[currentRow + i][currentCol + i] != player) {
@@ -119,9 +123,11 @@ public class Game implements Observer {
 					}
 				}
 			}
+
 			// reset win check for col 3 since it can connect 4 from left And right
-			if (currentCol == 3) win = true;
-	
+			if (currentCol == 3)
+				win = true;
+
 			if (currentCol >= 3) { // checks up left
 				for (int i = 1; i <= 3; i++) {
 					if (board[currentRow + i][currentCol - i] != player) {
@@ -131,6 +137,8 @@ public class Game implements Observer {
 				}
 			}
 		}
+
+		if (win) System.out.println("win found diagonally up");
 		return win;
 	}
 
@@ -142,8 +150,7 @@ public class Game implements Observer {
 		// checks the next three pieces
 		if (currentRow < 3) {
 			win = false;
-		}
-		else {
+		} else {
 			if (currentCol <= 3) { // checks down right
 				for (int i = 1; i <= 3; i++) {
 					if (board[currentRow - i][currentCol + i] != player) {
@@ -152,9 +159,11 @@ public class Game implements Observer {
 					}
 				}
 			}
+
 			// reset win check for col 3 since it can connect 4 from left And right
-			if (currentCol == 3) win = true;
-	
+			if (currentCol == 3)
+				win = true;
+
 			if (currentCol >= 3) { // checks down left
 				for (int i = 1; i <= 3; i++) {
 					if (board[currentRow - i][currentCol - i] != player) {
@@ -164,9 +173,11 @@ public class Game implements Observer {
 				}
 			}
 		}
+
+		if (win) System.out.println("win found diagonally down");
 		return win;
 	}
-	
+
 	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
 	}
@@ -175,9 +186,11 @@ public class Game implements Observer {
 		return lastPiecePlacedCol;
 	}
 
-	public Boolean isFull (int col) {//checks if the board is full
-		if (board[board.length - 1][col] != 0) return true;
-		else return false;
+	public Boolean isFull(int col) {// checks if the board is full
+		if (board[board.length - 1][col] != 0)
+			return true;
+		else
+			return false;
 	}
 
 	public ArrayList<Integer> validMoves() {
@@ -239,10 +252,16 @@ public class Game implements Observer {
 	}
 
 	public int[][] update(int col) {
-		move(col);
+		if (!gameDone) {
+			move(col);
 
-		if (isWin()) {
-			board[getCurrentPieceRow()][getCurrentPieceCol()] = getLastPlayerCheck() + 2;
+			if (isWin()) {
+				gameDone = true;
+				System.out.println("row:" + Integer.toString(getCurrentPieceRow()));
+				System.out.println("col:" + Integer.toString(getCurrentPieceCol()));
+				
+				board[getCurrentPieceRow()][getCurrentPieceCol()] = getLastPlayerCheck() + 2;
+			}
 		}
 
 		// returns a copy of the board
