@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomPlayer implements Observer {
@@ -13,7 +14,8 @@ public class RandomPlayer implements Observer {
 
     public int getMove() {
         Random r = new Random();
+        ArrayList<Integer> moves = connect4.validMoves();
 
-        return r.nextInt(6);
+        return moves.get(r.nextInt(moves.size()));
     }
 }

@@ -1,11 +1,13 @@
-public class Game implements Observer{
+import java.util.ArrayList;
+
+public class Game implements Observer {
 	int turnsPlayed = 0;
 	int[][] board = new int[6][7];
 	int lastPiecePlacedRow;
 	int lastPiecePlacedCol;
 
-	public Game () {}
-
+	public Game() {}
+	
 	public Game copy() {
 		// creates new game
 		Game c = new Game();
@@ -16,7 +18,7 @@ public class Game implements Observer{
 			for (int j = 0; j < board[i].length; ++j) {
 				// copies values from each to the corresponding square in the new board
 				b[i][j] = this.board[i][j];
-				
+
 				if (b[i][j] != 0) {
 					count++;
 				}
@@ -31,9 +33,9 @@ public class Game implements Observer{
 		this.turnsPlayed = turns;
 	}
 
-	public boolean isDraw () {
+	public boolean isDraw() {
 		for (int i = 0; i < board.length; ++i) {
-			for (int j = 0; j < board[i].length; ++j) {	
+			for (int j = 0; j < board[i].length; ++j) {
 				if (board[i][j] == 0) {
 					return false;
 				}
@@ -45,112 +47,164 @@ public class Game implements Observer{
 
 	public boolean isWin() {
 		boolean win = false;
-		if(turnsPlayed > 7) {
-			if(checkVertically() == true || checkHorizontally() == true || checkDiagonallyUp() == true 
-			   || checkDiagonallyDown() == true) { //add diagonal win condition
+		if (turnsPlayed > 7) {
+			if (checkVertically() == true || checkHorizontally() == true || checkDiagonallyUp() || checkDiagonallyDown()) { // add diagonal win condition
 				win = true;
 			}
-		}
-		else {
+		} else {
 			win = false;
 		}
 		return win;
 	}
-	
+
 	public boolean checkVertically() {
-		int player = getPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck(); // gets the player that just placed a piece
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		
-		//checks the next three pieces
-		if(board[currentRow][currentCol+1] == player && board[currentRow][currentCol+2] == player 
-				&& board[currentRow][currentCol+3] == player) { // checks up
-			return true;
+
+		if (currentRow < 3) return false;
+
+		for (int i = 1; i <= 3; i++) {
+			if (board[currentRow - i][currentCol] != player) {
+				return false;
+			}
 		}
-		
-		else if(board[currentRow][currentCol-1] == player && board[currentRow][currentCol-2] == player 
-				&& board[currentRow][currentCol-3] == player) { // checks down
-			return true;
-		}
-		return false;
+		return true;
 	}
-	
+
 	public boolean checkHorizontally() {
-		int player = getPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		
-		//checks the next three pieces
-		if(board[currentRow+1][currentCol] == player && board[currentRow+2][currentCol] == player 
-				&& board[currentRow+3][currentCol] == player) { // checks right
-			return true;
+		boolean win = true;
+
+		// checks the next three pieces
+		if (currentCol <= 3) { // checks right
+			for (int i = 1; i <= 3; i++) {
+				if (board[currentRow][currentCol + i] != player) {
+					win = false;
+					break;
+				}
+			}
 		}
-		
-		else if(board[currentRow-1][currentCol] == player && board[currentRow-2][currentCol] == player 
-				&& board[currentRow-3][currentCol] == player) { // checks left
-			return true;
+		// reset win check for col 3 since it can connect 4 from left And right
+		if (currentCol == 3) win = true;
+
+		if (currentCol >= 3) { // checks left
+			for (int i = 1; i <= 3; i++) {
+				if (board[currentRow][currentCol - i] != player) {
+					win = false;
+					break;
+				}
+			}
 		}
-		return false;
+		return win;
 	}
-	
+
 	public boolean checkDiagonallyUp() {
-		int player = getPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		
-		//checks the next three pieces
-		if(board[currentRow+1][currentCol+1] == player && board[currentRow+2][currentCol+2] == player 
-				&& board[currentRow+3][currentCol+3] == player) { // checks up right
-			return true;
+		boolean win = true;
+		// checks the next three pieces
+		if (currentRow > 2) {
+			win = false;
 		}
-		
-		else if(board[currentRow-1][currentCol+1] == player && board[currentRow-2][currentCol+2] == player 
-				&& board[currentRow-3][currentCol+3] == player) { // checks up left
-			return true;
-		}
-		return false;
-	}
+		else {
+			if (currentCol <= 3) { // checks up right
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow + i][currentCol + i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
+			// reset win check for col 3 since it can connect 4 from left And right
+			if (currentCol == 3) win = true;
 	
+			if (currentCol >= 3) { // checks up left
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow + i][currentCol - i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
+		}
+		return win;
+	}
+
 	public boolean checkDiagonallyDown() {
-		int player = getPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		
-		//checks the next three pieces
-		if(board[currentRow+1][currentCol-1] == player && board[currentRow+2][currentCol-2] == player 
-				&& board[currentRow+3][currentCol-3] == player) { // checks down right
-			return true;
+		boolean win = true;
+		// checks the next three pieces
+		if (currentRow < 3) {
+			win = false;
 		}
-		
-		else if(board[currentRow-1][currentCol-1] == player && board[currentRow-2][currentCol-2] == player 
-				&& board[currentRow-3][currentCol-3] == player) { // checks down left
-			return true;
+		else {
+			if (currentCol <= 3) { // checks down right
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow - i][currentCol + i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
+			// reset win check for col 3 since it can connect 4 from left And right
+			if (currentCol == 3) win = true;
+	
+			if (currentCol >= 3) { // checks down left
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow - i][currentCol - i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
 		}
-		return false;
+		return win;
 	}
 	
-	public int getCurrentPieceRow(){
+	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
 	}
-	
-	public int getCurrentPieceCol(){
+
+	public int getCurrentPieceCol() {// returns the column of the last placed piece
 		return lastPiecePlacedCol;
 	}
-	
+
+	public Boolean isFull (int col) {//checks if the board is full
+		if (board[board.length - 1][col] != 0) return true;
+		else return false;
+	}
+
+	public ArrayList<Integer> validMoves() {
+		ArrayList<Integer> moves = new ArrayList<Integer>();
+
+		for (int i = 0; i < board[0].length; i++) {
+			if (board[board.length - 1][i] == 0) {
+				moves.add(i);
+			}
+		}
+
+		return moves;
+	}
+
 	public void move(int column) {
 		lastPiecePlacedCol = column;
-		if(getPlayerCheck() == 0) { //player 1 represented with 1
-			for(int i = 0; i < 7; i++) {
-				if (board[i][column] == 0){
+		if (getPlayerCheck() == 0) { // player 1 represented with 1
+			for (int i = 0; i < 7; i++) {
+				if (board[i][column] == 0) {
 					board[i][column] = 1;
 					lastPiecePlacedRow = i;
 					break;
 				}
 			}
-		}
-		else {//player 2 represented with 2
-			for(int i = 0; i < 7; i++) {
-				if (board[i][column] == 0){
+		} else {// player 2 represented with 2
+			for (int i = 0; i < 7; i++) {
+				if (board[i][column] == 0) {
 					board[i][column] = 2;
 					lastPiecePlacedRow = i;
 					break;
@@ -159,7 +213,7 @@ public class Game implements Observer{
 		}
 		turnsPlayed++;
 	}
-	
+
 	public int getCurrentTurn() {
 		return turnsPlayed;
 	}
@@ -172,16 +226,26 @@ public class Game implements Observer{
 		turnsPlayed = 0;
 		this.board = new int[6][7];
 	}
-	
+
 	public int getPlayerCheck() {
-	// if odd turn, next turn is player 2, if even player 1
+		// if odd turn, next turn is player 2, if even player 1
 		return turnsPlayed % 2;
 	}
-	
+
+	public int getLastPlayerCheck() {
+		// since the turns played is incrememented after the move, you must subtract 1
+		// from turnsplayed to get the previously placed player's number
+		return (turnsPlayed - 1) % 2 + 1;
+	}
+
 	public int[][] update(int col) {
 		move(col);
 
+		if (isWin()) {
+			board[getCurrentPieceRow()][getCurrentPieceCol()] = getLastPlayerCheck() + 2;
+		}
+
 		// returns a copy of the board
-		return copy().getBoard(); // error?
+		return copy().getBoard();
 	}
 }
