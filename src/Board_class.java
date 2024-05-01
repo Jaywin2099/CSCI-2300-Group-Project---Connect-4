@@ -96,7 +96,9 @@ public class Board_class extends JFrame {
         // disables all buttons
         for (int i = 0; i < columnButtons.length; i++) {
             columnButtons[i].setEnabled(false);
-            columnButtons[i].setText("win");
         }
+
+        // change title to "# - 2 win!"
+
     }
 }

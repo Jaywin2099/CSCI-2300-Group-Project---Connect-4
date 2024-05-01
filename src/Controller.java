@@ -18,6 +18,15 @@ public class Controller {
 
             // sends board to gui to update view
             gui.updatePieces(board);
+            
+            Boolean win = false;
+            for (int k = 0; k < 0; k++) {
+                for (int j = 0; j < 0; j++) {
+                    if (board[k][j] > 2) win = true;
+                }
+            }
+
+            if (win) break;
         }
     }
     
