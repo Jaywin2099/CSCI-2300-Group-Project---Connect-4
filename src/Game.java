@@ -73,7 +73,6 @@ public class Game implements Observer {
 
 	public boolean checkHorizontally() {
 		int player = getLastPlayerCheck();
-		
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
@@ -108,17 +107,33 @@ public class Game implements Observer {
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
+		boolean win = true;
 		// checks the next three pieces
-		if (board[currentRow + 1][currentCol + 1] == player && board[currentRow + 2][currentCol + 2] == player
-				&& board[currentRow + 3][currentCol + 3] == player) { // checks up right
-			return true;
+		if (currentRow > 2) {
+			win = false;
 		}
-
-		else if (board[currentRow - 1][currentCol + 1] == player && board[currentRow - 2][currentCol + 2] == player
-				&& board[currentRow - 3][currentCol + 3] == player) { // checks up left
-			return true;
+		else {
+			if (currentCol <= 3) { // checks up right
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow + i][currentCol + i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
+			// reset win check for col 3 since it can connect 4 from left And right
+			if (currentCol == 3) win = true;
+	
+			if (currentCol >= 3) { // checks up left
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow + i][currentCol - i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
 		}
-		return false;
+		return win;
 	}
 
 	public boolean checkDiagonallyDown() {
@@ -126,19 +141,35 @@ public class Game implements Observer {
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
+		boolean win = true;
 		// checks the next three pieces
-		if (board[currentRow + 1][currentCol - 1] == player && board[currentRow + 2][currentCol - 2] == player
-				&& board[currentRow + 3][currentCol - 3] == player) { // checks down right
-			return true;
+		if (currentRow < 3) {
+			win = false;
 		}
-
-		else if (board[currentRow - 1][currentCol - 1] == player && board[currentRow - 2][currentCol - 2] == player
-				&& board[currentRow - 3][currentCol - 3] == player) { // checks down left
-			return true;
+		else {
+			if (currentCol <= 3) { // checks down right
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow - i][currentCol + i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
+			// reset win check for col 3 since it can connect 4 from left And right
+			if (currentCol == 3) win = true;
+	
+			if (currentCol >= 3) { // checks down left
+				for (int i = 1; i <= 3; i++) {
+					if (board[currentRow - i][currentCol - i] != player) {
+						win = false;
+						break;
+					}
+				}
+			}
 		}
-		return false;
+		return win;
 	}
-
+	
 	public int getCurrentPieceRow() {
 		return lastPiecePlacedRow;
 	}
