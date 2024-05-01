@@ -241,12 +241,8 @@ public class Game implements Observer {
 	public int[][] update(int col) {
 		move(col);
 
-		if (isDraw()) {
-			
-		}
-
 		if (isWin()) {
-
+			board[getCurrentPieceRow()][getCurrentPieceCol()] = getLastPlayerCheck() + 2;
 		}
 
 		// returns a copy of the board
