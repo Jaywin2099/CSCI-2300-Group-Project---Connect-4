@@ -7,7 +7,7 @@ public class Game implements Observer {
 	int lastPiecePlacedCol;
 
 	public Game() {}
-
+	
 	public Game copy() {
 		// creates new game
 		Game c = new Game();

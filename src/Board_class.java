@@ -91,4 +91,11 @@ public class Board_class extends JFrame {
         pack();
         repaint();
     }
+
+    public void onWin () {
+        // disables all buttons
+        for (int i = 0; i < columnButtons.length; i++) {
+            columnButtons[i].setEnabled(false);
+        }
+    }
 }
