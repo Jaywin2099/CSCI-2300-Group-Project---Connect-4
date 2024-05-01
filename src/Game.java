@@ -104,7 +104,7 @@ public class Game implements Observer {
 	}
 
 	public boolean checkDiagonallyUp() {
-		int player = getLastPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
@@ -122,7 +122,7 @@ public class Game implements Observer {
 	}
 
 	public boolean checkDiagonallyDown() {
-		int player = getLastPlayerCheck() + 1; // 0 + 1 = 1 which is player 1 piece
+		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
