@@ -59,7 +59,6 @@ public class Game implements Observer {
 
 	public boolean checkVertically() {
 		int player = getLastPlayerCheck(); // gets the player that just placed a piece
-
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
@@ -77,7 +76,6 @@ public class Game implements Observer {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-
 		boolean win = true;
 
 		// checks the next three pieces
@@ -89,7 +87,6 @@ public class Game implements Observer {
 				}
 			}
 		}
-
 		// reset win check for col 3 since it can connect 4 from left And right
 		if (currentCol == 3) win = true;
 
@@ -108,7 +105,6 @@ public class Game implements Observer {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-
 		boolean win = true;
 		// checks the next three pieces
 		if (currentRow > 2) {
@@ -142,7 +138,6 @@ public class Game implements Observer {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-
 		boolean win = true;
 		// checks the next three pieces
 		if (currentRow < 3) {
@@ -172,15 +167,15 @@ public class Game implements Observer {
 		return win;
 	}
 	
-	public int getCurrentPieceRow() {
+	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
 	}
 
-	public int getCurrentPieceCol() {
+	public int getCurrentPieceCol() {// returns the column of the last placed piece
 		return lastPiecePlacedCol;
 	}
 
-	public Boolean isFull (int col) {
+	public Boolean isFull (int col) {//checks if the board is full
 		if (board[board.length - 1][col] != 0) return true;
 		else return false;
 	}
