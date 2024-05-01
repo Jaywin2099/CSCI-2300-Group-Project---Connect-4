@@ -241,6 +241,14 @@ public class Game implements Observer {
 	public int[][] update(int col) {
 		move(col);
 
+		if (isDraw()) {
+			
+		}
+
+		if (isWin()) {
+
+		}
+
 		// returns a copy of the board
 		return copy().getBoard();
 	}
