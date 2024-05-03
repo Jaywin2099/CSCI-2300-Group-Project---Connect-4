@@ -46,7 +46,7 @@ public class Game implements Observer {
 
 	public boolean isWin() {
 		boolean win = false;
-		if (turnsPlayed > 7) {
+		if (turnsPlayed >= 7) {
 			if (checkVertically() == true || checkHorizontally() == true || checkDiagonallyUp() || checkDiagonallyDown()) { // add diagonal win condition
 				win = true;
 			}
