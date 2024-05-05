@@ -226,6 +226,7 @@ public class Game implements Observer {
 				}
 			}
 		}
+		/*
 		else if (currentCol < 3 && (currentRow - currentCol) <= 3) { // left side of board and not top left corner
 			if(currentCol == 0) {
 				row = currentRow;
@@ -277,7 +278,7 @@ public class Game implements Observer {
 					inARow = 1;
 				}
 			}
-		}
+		} */
 		if (maxInARow >= 4) {
 			System.out.println("win found horizontally");
 			win = true;
