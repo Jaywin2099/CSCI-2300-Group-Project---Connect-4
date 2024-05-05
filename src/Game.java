@@ -176,7 +176,7 @@ public class Game implements Observer {
 				}
 			}
 		}
-		/*
+		
 		else if (currentCol < 3 && (currentRow - currentCol) <= 3) { // left side of board and not top left corner
 			if(currentCol == 0) {
 				row = currentRow;
@@ -197,11 +197,32 @@ public class Game implements Observer {
 					}
 				}
 			}
-			else if(currentRow >= 1){
-				row = currentRow;
+			else if(currentRow == 1){
+				if(currentRow == 0) row = currentRow;
+				row = currentRow-1;
 				col = currentCol;
-				while(row >= 0) {
-					if (board[row][col] == board[row - 1][col - 1]) {
+				while(row <= 5) {
+					if (board[row][col] == board[row + 1][col + 1]) {
+						inARow = inARow + 1;
+						row = row - 1;
+						col = col - 1;
+						if(inARow > maxInARow) {
+							maxInARow = inARow;
+						}
+						
+					}
+					else {
+						inARow = 1;
+					}
+				}
+			}
+			else if(currentRow == 2){
+				if(currentRow == 0) row = currentRow;
+				if(currentRow == 1) row = currentRow-1;
+				row = currentRow-2;
+				col = currentCol;
+				while(row <= 5) {
+					if (board[row][col] == board[row + 1][col + 1]) {
 						inARow = inARow + 1;
 						row = row - 1;
 						col = col - 1;
@@ -216,7 +237,8 @@ public class Game implements Observer {
 				}
 			}
 			}
-		else { // checks til the end of the board
+		
+		else { // checks til the end of the board 
 			for (int i = (currentCol - 2); i <= 6; i++) {
 				if (board[currentRow][i-1] == board[currentRow][i]) {
 					inARow = inARow + 1;
@@ -228,7 +250,7 @@ public class Game implements Observer {
 					inARow = 1;
 				}
 			}
-		} */
+		}
 		if (maxInARow >= 4) {
 			System.out.println("win found horizontally");
 			win = true;
