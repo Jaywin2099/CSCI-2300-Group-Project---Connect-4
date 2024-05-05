@@ -286,7 +286,7 @@ public class Game implements Observer {
 		return win;
 	}
 		
-	
+
 	public boolean checkDiagonallyUp() {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
@@ -361,6 +361,7 @@ public class Game implements Observer {
 		if (win) System.out.println("win found diagonally down");
 		return win;
 	}
+
 
 	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
