@@ -132,7 +132,7 @@ public class Game implements Observer {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		boolean win = false;
+		boolean win = true;
 		
 		// checks the next three pieces
 		if (currentRow > 2) {
