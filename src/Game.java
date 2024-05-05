@@ -84,7 +84,11 @@ public class Game implements Observer {
 
 		if (currentCol == 3) { //middle piece, check the whole row
 			for (int i = 1; i <= 6; i++) {
+<<<<<<< HEAD
 				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
+=======
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
+>>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -98,7 +102,11 @@ public class Game implements Observer {
 		}
 		else if (currentCol < 3) { // checks from start of the board
 			for (int i = 1; i <= (currentCol + 4); i++) {
+<<<<<<< HEAD
 				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
+=======
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
+>>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -111,7 +119,11 @@ public class Game implements Observer {
 		}
 		else { // checks til the end of the board
 			for (int i = (currentCol - 2); i <= 6; i++) {
+<<<<<<< HEAD
 				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
+=======
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
+>>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -241,9 +253,13 @@ public class Game implements Observer {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
+<<<<<<< HEAD
 		boolean win = false;
 		int inARow = 1;
 		int maxInARow = 0;
+=======
+		boolean win = true;
+>>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 		
 		// checks the next three pieces
 		if (currentRow > 2) {
