@@ -85,11 +85,7 @@ public class Game implements Observer {
 
 		if (currentCol == 3) { //middle piece, check the whole row
 			for (int i = 1; i <= 6; i++) {
-<<<<<<< HEAD
 				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
-=======
-				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
->>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -103,11 +99,7 @@ public class Game implements Observer {
 		}
 		else if (currentCol < 3) { // checks from start of the board
 			for (int i = 1; i <= (currentCol + 4); i++) {
-<<<<<<< HEAD
 				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
-=======
-				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
->>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -120,11 +112,7 @@ public class Game implements Observer {
 		}
 		else { // checks til the end of the board
 			for (int i = (currentCol - 2); i <= 6; i++) {
-<<<<<<< HEAD
 				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
-=======
-				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
->>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -238,7 +226,6 @@ public class Game implements Observer {
 				}
 			}
 		}
-		/*
 		else if (currentCol < 3 && (currentRow - currentCol) <= 3) { // left side of board and not top left corner
 			if(currentCol == 0) {
 				row = currentRow;
@@ -290,7 +277,7 @@ public class Game implements Observer {
 					inARow = 1;
 				}
 			}
-		} */
+		}
 		if (maxInARow >= 4) {
 			System.out.println("win found horizontally");
 			win = true;
@@ -299,17 +286,13 @@ public class Game implements Observer {
 	}
 		
 	
-	/*public boolean checkDiagonallyUp() {
+	public boolean checkDiagonallyUp() {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-<<<<<<< HEAD
 		boolean win = false;
 		int inARow = 1;
 		int maxInARow = 0;
-=======
-		boolean win = true;
->>>>>>> 6340fe46d165f8475949912ac31f64113a7c0f16
 		
 		// checks the next three pieces
 		if (currentRow > 2) {
@@ -376,7 +359,7 @@ public class Game implements Observer {
 
 		if (win) System.out.println("win found diagonally down");
 		return win;
-	}*/
+	}
 
 	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
