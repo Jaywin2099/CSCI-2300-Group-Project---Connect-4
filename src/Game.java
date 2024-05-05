@@ -75,42 +75,65 @@ public class Game implements Observer {
 	}
 
 	public boolean checkHorizontally() {
-		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		boolean win = true;
+		boolean win = false;
+		int inARow = 1;
+		int maxInARow = 0;
 
-		// checks the next three pieces
-		if (currentCol <= 3) { // checks right
-			for (int i = 1; i <= 3; i++) {
-				if (board[currentRow][currentCol + i] != player) {
-					win = false;
-					break;
+		if (currentCol == 3) { //middle piece, check the whole row
+			for (int i = 1; i <= 6; i++) {
+				if (board[currentRow][i-1] == board[currentRow][i]) {
+					inARow = inARow + 1;
+					if(inARow > maxInARow) {
+						maxInARow = inARow;
+					}
+					
+				}
+				else {
+					inARow = 1;
 				}
 			}
 		}
-		
-		// reset win check for col 3 since it can connect 4 from left And right
-		else if (currentCol == 3) win = true;
-
-		if (currentCol >= 3) { // checks left
-			for (int i = 1; i <= 3; i++) {
-				if (board[currentRow][currentCol - i] != player) {
-					win = false;
-					break;
+		else if (currentCol < 3) { // checks from start of the board
+			for (int i = 1; i <= (currentCol + 4); i++) {
+				if (board[currentRow][i-1] == board[currentRow][i]) {
+					inARow = inARow + 1;
+					if(inARow > maxInARow) {
+						maxInARow = inARow;
+					}
+				}
+				else {
+					inARow = 1;
 				}
 			}
 		}
-
-		if (win) System.out.println("win found horizontally");
+		else { // checks til the end of the board
+			for (int i = (currentCol - 2); i <= 6; i++) {
+				if (board[currentRow][i-1] == board[currentRow][i]) {
+					inARow = inARow + 1;
+					if(inARow > maxInARow) {
+						maxInARow = inARow;
+					}
+				}
+				else {
+					inARow = 1;
+				}
+			}
+		}
+		if (maxInARow >= 4) {
+			System.out.println("win found horizontally");
+			win = true;
+		}
 		return win;
 	}
-
+	
 	public boolean checkDiagonallyUp() {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		boolean win = true;
+		boolean win = false;
+		
 		// checks the next three pieces
 		if (currentRow > 2) {
 			win = false;
