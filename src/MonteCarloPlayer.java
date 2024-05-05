@@ -12,7 +12,7 @@ public class MonteCarloPlayer implements Observer {
         this.random = new Random();
     }
 
-    public int[][] update (int col) {
+    public int[][] update(int col) {
         int move = findBestMove();
 
         return connect4.update(move);
@@ -25,7 +25,7 @@ public class MonteCarloPlayer implements Observer {
 
         for (int move : legalMoves) {
             int score = simulateMove(move);
-            
+
             if (score > bestScore) {
                 bestScore = score;
                 bestMove = move;
@@ -38,36 +38,36 @@ public class MonteCarloPlayer implements Observer {
     private int simulateMove(int move) {
         int totalScore = 0;
 
-	    for (int i = 0; i < MAX_SIMULATIONS; i++) {
-	        int score = 0;
-	        Game copy = connect4.copy(); // Make a copy of the current game state
-	        
+        for (int i = 0; i < MAX_SIMULATIONS; i++) {
+            int score = 0;
+            Game copy = connect4.copy(); // Make a copy of the current game state
+
             copy.move(move); // Simulate making the move
 
-	        // Simulate random moves until the game ends
-	        while (!copy.isDraw()) {
+            // Simulate random moves until the game ends
+            while (!copy.isDraw()) {
                 // checks for win
                 if (copy.isWin()) {
-	                if (copy.getLastPlayerCheck() == 2) {
-	                    score = 1;
-	                } else {
-	                    score = -1;
-	                }
+                    if (copy.getLastPlayerCheck() == 2) {
+                        score = 1;
+                    } else {
+                        score = -1;
+                    }
                     break;
-	            }
+                }
 
                 ArrayList<Integer> moves = copy.validMoves();
 
                 int randomMove = random.nextInt(moves.size());
-                
-                // does that move
-	            copy.move(moves.get(randomMove));
-	        }
 
-	        // adds the final game state score to total
-	        totalScore += score;
-	    }
-	
-	    return totalScore;
+                // does that move
+                copy.move(moves.get(randomMove));
+            }
+
+            // adds the final game state score to total
+            totalScore += score;
+        }
+
+        return totalScore;
     }
 }
