@@ -433,6 +433,8 @@ public class Game implements Observer {
 	}
 
 	public int getLastPlayerCheck() {
+		if (turnsPlayed == 0) return 2;
+		
 		// since the turns played is incrememented after the move, you must subtract 1
 		// from turnsplayed to get the previously placed player's number
 		return (turnsPlayed - 1) % 2 + 1;

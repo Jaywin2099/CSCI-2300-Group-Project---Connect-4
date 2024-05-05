@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MonteCarloPlayer implements Observer {
-
-    private static final int MAX_SIMULATIONS = 5500;
+    private static final int MAX_SIMULATIONS = 30000;
     private Random random;
     private Game connect4;
+    private int me;
 
     public MonteCarloPlayer(Game g) {
         this.connect4 = g;
@@ -14,7 +14,6 @@ public class MonteCarloPlayer implements Observer {
 
     public int[][] update(int col) {
         int move = findBestMove();
-
         return connect4.update(move);
     }
 
@@ -22,6 +21,8 @@ public class MonteCarloPlayer implements Observer {
         ArrayList<Integer> legalMoves = connect4.validMoves();
         int bestMove = legalMoves.get(0);
         int bestScore = Integer.MIN_VALUE;
+
+        me = connect4.getPlayerCheck() + 1;
 
         for (int move : legalMoves) {
             int score = simulateMove(move);
@@ -48,7 +49,7 @@ public class MonteCarloPlayer implements Observer {
             while (!copy.isDraw()) {
                 // checks for win
                 if (copy.isWin()) {
-                    if (copy.getLastPlayerCheck() == 2) {
+                    if (copy.getLastPlayerCheck() == me) {
                         score = 1;
                     } else {
                         score = -1;

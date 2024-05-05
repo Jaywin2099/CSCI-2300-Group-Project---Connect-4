@@ -18,7 +18,7 @@ public class Controller {
 
             // sends board to gui to update view
             gui.updatePieces(board);
-            
+
             // checks for win
             Boolean win = false;
             for (int k = 0; k < board.length; k++) {
