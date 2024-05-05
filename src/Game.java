@@ -2,7 +2,9 @@ import java.util.ArrayList;
 
 public class Game implements Observer {
 	int turnsPlayed = 0;
-	int[][] board = new int[6][7];
+	int COLS = 7;
+	int ROWS = 6;
+	int[][] board = new int[ROWS][COLS];
 	int lastPiecePlacedRow;
 	int lastPiecePlacedCol;
 	private Boolean gameDone = false;
@@ -47,12 +49,13 @@ public class Game implements Observer {
 	public boolean isWin() {
 		boolean win = false;
 		if (turnsPlayed >= 7) {
-			if (checkVertically() == true || checkHorizontally() == true || checkDiagonallyUp() || checkDiagonallyDown()) { // add diagonal win condition
+			if (checkVertically() || checkHorizontally() || checkDiagonally()) {
 				win = true;
 			}
 		} else {
-			win = false;
+			win = false; // Up() || checkDiagonallyDown()
 		}
+
 		return win;
 	}
 
@@ -61,8 +64,8 @@ public class Game implements Observer {
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 
-		if (currentRow < 3)
-			return false;
+		// bounds check
+		if (currentRow < 3) return false;
 
 		for (int i = 1; i <= 3; i++) {
 			if (board[currentRow - i][currentCol] != player) {
@@ -70,14 +73,12 @@ public class Game implements Observer {
 			}
 		}
 
-		System.out.println("win found vertically");
 		return true;
 	}
 
 	public boolean checkHorizontally() {
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		boolean win = false;
 		int inARow = 1;
 		int maxInARow = 0;
 
@@ -121,14 +122,63 @@ public class Game implements Observer {
 				}
 			}
 		}
-		if (maxInARow >= 4) {
-			System.out.println("win found horizontally");
-			win = true;
+
+		if (maxInARow >= 4) return true;
+		return false;
+	}
+	
+	public boolean checkDiagonally() {
+		int player = getLastPlayerCheck();
+		int currentRow = getCurrentPieceRow();
+		int currentCol = getCurrentPieceCol();
+		boolean win = false;
+	
+		// check diagonal up-right
+		int inARow = 0;
+		for (int i = 1; i <= 3; i++) {
+			if (currentRow + i >= ROWS || currentCol + i >= COLS) break; // Out of bounds
+			if (board[currentRow + i][currentCol + i] == player) {
+				inARow++;
+			} else break; // Break if consecutive pieces not found
 		}
+
+		// down-left
+		for (int i = 1; i <= 3; i++) {
+			if (currentRow - i < 0 || currentCol - i < 0) break; // Out of bounds
+			if (board[currentRow - i][currentCol - i] == player) {
+				inARow++;
+			} else break;
+		}
+
+		if (inARow >= 3) win = true;
+	
+		// down-right
+		inARow = 0;
+		for (int i = 1; i <= 3; i++) {
+			// checks if next piece is out of bounds
+			if (currentRow - i < 0 || currentCol + i >= COLS) break;
+
+			if (board[currentRow - i][currentCol + i] == player) {
+				inARow++;
+			} else break;
+		}
+
+		// up-left
+		for (int i = 1; i <= 3; i++) {
+			// checks if next piece is out of bounds
+			if (currentRow + i >= ROWS || currentCol - i < 0) break;
+
+			if (board[currentRow + i][currentCol - i] == player) {
+				inARow++;
+			} else break;
+		}
+
+		if (inARow >= 3) win = true;
+		
 		return win;
 	}
 	
-	public boolean checkDiagonallyUp() {
+	/*public boolean checkDiagonallyUp() {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
@@ -199,7 +249,7 @@ public class Game implements Observer {
 
 		if (win) System.out.println("win found diagonally down");
 		return win;
-	}
+	}*/
 
 	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
@@ -280,9 +330,8 @@ public class Game implements Observer {
 
 			if (isWin()) {
 				gameDone = true;
-				System.out.println("row:" + Integer.toString(getCurrentPieceRow()));
-				System.out.println("col:" + Integer.toString(getCurrentPieceCol()));
-				
+
+				// adds two to value of winning piece so the board class knows that a win was found
 				board[getCurrentPieceRow()][getCurrentPieceCol()] = getLastPlayerCheck() + 2;
 			}
 		}
