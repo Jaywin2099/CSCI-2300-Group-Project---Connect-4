@@ -83,7 +83,7 @@ public class Game implements Observer {
 
 		if (currentCol == 3) { //middle piece, check the whole row
 			for (int i = 1; i <= 6; i++) {
-				if (board[currentRow][i-1] == board[currentRow][i]) {
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -97,7 +97,7 @@ public class Game implements Observer {
 		}
 		else if (currentCol < 3) { // checks from start of the board
 			for (int i = 1; i <= (currentCol + 4); i++) {
-				if (board[currentRow][i-1] == board[currentRow][i]) {
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -110,7 +110,7 @@ public class Game implements Observer {
 		}
 		else { // checks til the end of the board
 			for (int i = (currentCol - 2); i <= 6; i++) {
-				if (board[currentRow][i-1] == board[currentRow][i]) {
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] != 0) {
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
