@@ -132,7 +132,6 @@ public class Game implements Observer {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
-		boolean win = false;
 	
 		// check diagonal up-right
 		int inARow = 0;
@@ -151,7 +150,7 @@ public class Game implements Observer {
 			} else break;
 		}
 
-		if (inARow >= 3) win = true;
+		if (inARow >= 3) return true;
 	
 		// down-right
 		inARow = 0;
@@ -174,10 +173,12 @@ public class Game implements Observer {
 			} else break;
 		}
 
-		if (inARow >= 3) win = true;
-		
-		return win;
+		if (inARow >= 3) return true;
+
+		return false;
 	}
+
+	/*
 
 	public boolean checkDiagonallyRight() {
 		int currentRow = getCurrentPieceRow();
@@ -226,7 +227,7 @@ public class Game implements Observer {
 				}
 			}
 		}
-		/*
+		
 		else if (currentCol < 3 && (currentRow - currentCol) <= 3) { // left side of board and not top left corner
 			if(currentCol == 0) {
 				row = currentRow;
@@ -278,7 +279,7 @@ public class Game implements Observer {
 					inARow = 1;
 				}
 			}
-		} */
+		}
 		if (maxInARow >= 4) {
 			System.out.println("win found horizontally");
 			win = true;
@@ -362,6 +363,7 @@ public class Game implements Observer {
 		return win;
 	}
 
+	*/
 
 	public int getCurrentPieceRow() {// returns the row of the last placed piece
 		return lastPiecePlacedRow;
