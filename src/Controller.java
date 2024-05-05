@@ -25,7 +25,6 @@ public class Controller {
                 for (int j = 0; j < board[0].length; j++) {
                     if (board[k][j] > 2) {
                         win = true;
-                        System.out.println("Value found in winning coord: " + Integer.toString(board[k][j]));
                         break;
                     }
                 }
