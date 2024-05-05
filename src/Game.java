@@ -75,6 +75,7 @@ public class Game implements Observer {
 	}
 
 	public boolean checkHorizontally() {
+		int player = getLastPlayerCheck(); // gets the player that just placed a piece
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 		boolean win = false;
@@ -83,7 +84,7 @@ public class Game implements Observer {
 
 		if (currentCol == 3) { //middle piece, check the whole row
 			for (int i = 1; i <= 6; i++) {
-				if (board[currentRow][i-1] == board[currentRow][i]) {
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -97,7 +98,7 @@ public class Game implements Observer {
 		}
 		else if (currentCol < 3) { // checks from start of the board
 			for (int i = 1; i <= (currentCol + 4); i++) {
-				if (board[currentRow][i-1] == board[currentRow][i]) {
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -110,7 +111,7 @@ public class Game implements Observer {
 		}
 		else { // checks til the end of the board
 			for (int i = (currentCol - 2); i <= 6; i++) {
-				if (board[currentRow][i-1] == board[currentRow][i]) {
+				if (board[currentRow][i-1] == board[currentRow][i] && board[currentRow][i] == player) {
 					inARow = inARow + 1;
 					if(inARow > maxInARow) {
 						maxInARow = inARow;
@@ -127,12 +128,122 @@ public class Game implements Observer {
 		}
 		return win;
 	}
+
+	public boolean checkDiagonallyRight() {
+		int currentRow = getCurrentPieceRow();
+		int currentCol = getCurrentPieceCol();
+		boolean win = false;
+		int inARow = 1;
+		int maxInARow = 0;
+		int row = 0;
+		int col = 0;
+		
+		if (currentCol == 3) { //middle column
+			if(currentRow > 2) {
+				row = 0;
+				col = currentRow - 3;
+				while(row <= 5) {
+					if (board[row][col] == board[row + 1][col + 1]) {
+						inARow = inARow + 1;
+						row = row + 1;
+						col = col + 1;
+						if(inARow > maxInARow) {
+							maxInARow = inARow;
+						}
+						
+					}
+					else {
+						inARow = 1;
+					}
+				}
+			}
+			else {
+				row = 6;
+				col = currentRow + 3;
+				while(row >= 0) {
+					if (board[row][col] == board[row - 1][col - 1]) {
+						inARow = inARow + 1;
+						row = row - 1;
+						col = col - 1;
+						if(inARow > maxInARow) {
+							maxInARow = inARow;
+						}
+						
+					}
+					else {
+						inARow = 1;
+					}
+				}
+			}
+		}
+		/*
+		else if (currentCol < 3 && (currentRow - currentCol) <= 3) { // left side of board and not top left corner
+			if(currentCol == 0) {
+				row = currentRow;
+				col = currentCol;
+				
+				while(row <= 5) {
+					if (board[row][col] == board[row + 1][col + 1]) {
+						inARow = inARow + 1;
+						row = row + 1;
+						col = col + 1;
+						if(inARow > maxInARow) {
+							maxInARow = inARow;
+						}
+						
+					}
+					else {
+						inARow = 1;
+					}
+				}
+			}
+			else if(currentRow >= 1){
+				row = currentRow;
+				col = currentCol;
+				while(row >= 0) {
+					if (board[row][col] == board[row - 1][col - 1]) {
+						inARow = inARow + 1;
+						row = row - 1;
+						col = col - 1;
+						if(inARow > maxInARow) {
+							maxInARow = inARow;
+						}
+						
+					}
+					else {
+						inARow = 1;
+					}
+				}
+			}
+			}
+		else { // checks til the end of the board
+			for (int i = (currentCol - 2); i <= 6; i++) {
+				if (board[currentRow][i-1] == board[currentRow][i]) {
+					inARow = inARow + 1;
+					if(inARow > maxInARow) {
+						maxInARow = inARow;
+					}
+				}
+				else {
+					inARow = 1;
+				}
+			}
+		} */
+		if (maxInARow >= 4) {
+			System.out.println("win found horizontally");
+			win = true;
+		}
+		return win;
+	}
+		
 	
 	public boolean checkDiagonallyUp() {
 		int player = getLastPlayerCheck();
 		int currentRow = getCurrentPieceRow();
 		int currentCol = getCurrentPieceCol();
 		boolean win = false;
+		int inARow = 1;
+		int maxInARow = 0;
 		
 		// checks the next three pieces
 		if (currentRow > 2) {
