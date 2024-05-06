@@ -21,12 +21,12 @@ public class Board_class extends JFrame {
 
         columnButtons = new JButton[COLS]; 
         boardButtons = new CircularButton[ROWS][COLS];
-
+        Color c1 = new Color(51,201,255);
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.BLACK);
 
         JPanel boardPanel = new JPanel(new GridLayout(ROWS, COLS));
-        boardPanel.setBackground(Color.BLUE);
+        boardPanel.setBackground(c1);
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
@@ -38,7 +38,7 @@ public class Board_class extends JFrame {
                 //boardButtons[row][col].setOpaque(true);
                 boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
 
-                //boardButtons[row][col].setEnabled(false);
+                boardButtons[row][col].setEnabled(false);
                 boardPanel.add(boardButtons[row][col]);
             }
         }
@@ -49,6 +49,7 @@ public class Board_class extends JFrame {
             columnButtons[col].setBackground(Color.WHITE);
             columnButtons[col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
             columnButtons[col].addActionListener(new ActionListener() {
+	
 	public void actionPerformed(ActionEvent e) {
 	    JButton clickedButton = (JButton) e.getSource();
 	    int col = -1;
