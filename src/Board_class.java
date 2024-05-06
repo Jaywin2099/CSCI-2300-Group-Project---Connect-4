@@ -45,7 +45,7 @@ public class Board_class extends JFrame {
 
         JPanel columnPanel = new JPanel(new GridLayout(1, COLS));
         for (int col = 0; col < COLS; col++) {
-            columnButtons[col] = new JButton("" + col); 
+            columnButtons[col] = new JButton("DROP"); 
             columnButtons[col].setBackground(Color.WHITE);
             columnButtons[col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
             columnButtons[col].addActionListener(new ActionListener() {

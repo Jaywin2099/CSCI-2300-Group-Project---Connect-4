@@ -12,13 +12,13 @@ public class Controller {
         observers.add(observer);
     }
 
-    public void notifyObservers (int col) {
+    public void notifyObservers (int col)  {
         for (int i = 0; i < observers.size(); i++) {
             int[][] board = observers.get(i).update(col);
 
             // sends board to gui to update view
             gui.updatePieces(board);
-
+            
             // checks for win
             Boolean win = false;
             for (int k = 0; k < board.length; k++) {
