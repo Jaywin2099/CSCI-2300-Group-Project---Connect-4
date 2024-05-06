@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MonteCarloPlayer implements Observer {
-    private static final int MAX_SIMULATIONS = 30000;
+    private static final int MAX_SIMULATIONS = 10000;
     private Random random;
     private Game connect4;
     private int me;
