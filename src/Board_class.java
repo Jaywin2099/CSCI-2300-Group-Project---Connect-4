@@ -21,7 +21,7 @@ public class Board_class extends JFrame {
 
         columnButtons = new JButton[COLS]; 
         boardButtons = new CircularButton[ROWS][COLS];
-        Color c1 = new Color(51-153-255);
+        Color c1 = new Color(51,201,255);
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.BLACK);
 
@@ -37,9 +37,29 @@ public class Board_class extends JFrame {
                 ((CircularButton) boardButtons[row][col]).setColor(Color.WHITE);
                 //boardButtons[row][col].setOpaque(true);
                 boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
-
-                boardButtons[row][col].setEnabled(false);
+                boardButtons[row][col].setEnabled(true);
                 boardPanel.add(boardButtons[row][col]);
+                boardButtons[row][col].addActionListener(new ActionListener() {
+                	
+	public void actionPerformed(ActionEvent e) {
+		    CircularButton boardButton  =  (CircularButton) e.getSource();
+		    int col = -1;
+		    for (int r = 0; r < ROWS; r++) {
+			    for (int c = 0; c < COLS; c++) {
+			        if (boardButton == boardButtons[r][c]) {
+			            col = c;
+			            break;
+			        }
+			    }
+		    
+			    // Notify controller about the button click
+			    if (col != -1) {
+			        controller.notifyObservers(col);
+			        break;
+			    }
+		    }
+		}
+});
             }
         }
 
@@ -52,9 +72,10 @@ public class Board_class extends JFrame {
 	
 	public void actionPerformed(ActionEvent e) {
 	    JButton clickedButton = (JButton) e.getSource();
+	
 	    int col = -1;
 	    for (int c = 0; c < COLS; c++) {
-	        if (clickedButton == columnButtons[c]) {
+	        if ( clickedButton == columnButtons[c]) {
 	            col = c;
 	            break;
 	        }
