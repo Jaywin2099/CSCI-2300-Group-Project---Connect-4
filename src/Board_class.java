@@ -47,7 +47,8 @@ public class Board_class extends JFrame {
 		    for (int r = 0; r < ROWS; r++) {
 			    for (int c = 0; c < COLS; c++) {
 			        if (boardButton == boardButtons[r][c]) {
-			            col = c;
+			        	boardButtons[r][c].setEnabled(false);
+			        	col = c;
 			            break;
 			        }
 			    }
@@ -77,6 +78,7 @@ public class Board_class extends JFrame {
 	    for (int c = 0; c < COLS; c++) {
 	        if ( clickedButton == columnButtons[c]) {
 	            col = c;
+	            
 	            break;
 	        }
 	    }
