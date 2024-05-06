@@ -10,6 +10,7 @@ public class Board_class extends JFrame {
     private JButton[] columnButtons;
     private JButton[][] boardButtons;
     private Controller controller;
+   
 
     public Board_class(Controller controller) {
         this.controller = controller;
@@ -17,8 +18,8 @@ public class Board_class extends JFrame {
         setTitle("Connect Four");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        columnButtons = new JButton[COLS]; // Initialize columnButtons array
-        boardButtons = new JButton[ROWS][COLS];
+        columnButtons = new JButton[COLS]; 
+        boardButtons = new CircularButton[ROWS][COLS];
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -26,9 +27,10 @@ public class Board_class extends JFrame {
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-                boardButtons[row][col] = new JButton();
+            	boardButtons[row][col] = new CircularButton();
+               
+                ((CircularButton) boardButtons[row][col]).setColor(Color.WHITE);
                 boardButtons[row][col].setOpaque(true);
-                boardButtons[row][col].setBackground(Color.WHITE);
                 boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
 
                 boardButtons[row][col].setEnabled(false);
@@ -42,17 +44,15 @@ public class Board_class extends JFrame {
             columnButtons[col].setBackground(Color.WHITE);
             columnButtons[col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
             columnButtons[col].addActionListener(new ActionListener() {
-
-    public void actionPerformed(ActionEvent e) {
-
-        JButton clickedButton = (JButton) e.getSource();
-        int col = -1;
-        for (int c = 0; c < COLS; c++) {
-            if (clickedButton == columnButtons[c]) {
-                col = c;
-                break;
-            }
-        }
+	public void actionPerformed(ActionEvent e) {
+	    JButton clickedButton = (JButton) e.getSource();
+	    int col = -1;
+	    for (int c = 0; c < COLS; c++) {
+	        if (clickedButton == columnButtons[c]) {
+	            col = c;
+	            break;
+	        }
+	    }
         // Notify controller about the button click
         if (col != -1) {
             controller.notifyObservers(col);
@@ -73,25 +73,24 @@ public class Board_class extends JFrame {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
                 if (board[i][j] == 1) {
-                	boardButtons[ROWS - i - 1][j].setBackground(Color.red);
+                	boardButtons[ROWS - i - 1][j].setBackground(Color.RED);
                 
                 } else if (board[i][j] == 2) {
-                	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
+                	((CircularButton)boardButtons[ROWS - i - 1][j]).setBackground(Color.BLUE);
                 
                 } else if (board[i][j]==3) {
-                	boardButtons[ROWS - i - 1][j].setBackground(Color.red);
+                	((CircularButton) boardButtons[ROWS - i - 1][j]).setBackground(Color.red);
                 	setTitle("Player 1 wins");
                 	onWin();
                 
                 } else if (board[i][j]==4) {
-                	boardButtons[ROWS - i - 1][j].setBackground(Color.blue);
+                	((CircularButton) boardButtons[ROWS - i - 1][j]).setBackground(Color.blue);
                 	setTitle("Player 2 wins");
                 	onWin();
                 } else if (board[i][j] != 0) {
                     System.out.println("error, board assigned to value greater than 4");
                 }
                 
-                boardButtons[i][j].setVisible(true);
             }
         }
 
@@ -104,6 +103,7 @@ public class Board_class extends JFrame {
         pack();
         repaint();
     }
+    
 
     public void onWin () {
         // disables all buttons
