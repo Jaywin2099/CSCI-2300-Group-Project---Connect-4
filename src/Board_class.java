@@ -21,7 +21,7 @@ public class Board_class extends JFrame {
 
         columnButtons = new JButton[COLS]; 
         boardButtons = new CircularButton[ROWS][COLS];
-        Color c1 = new Color(51,201,255);
+        Color c1 = new Color(51-153-255);
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.BLACK);
 
