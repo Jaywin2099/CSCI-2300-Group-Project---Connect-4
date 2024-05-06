@@ -14,6 +14,7 @@ public class Board_class extends JFrame {
 
     public Board_class(Controller controller) {
         this.controller = controller;
+        
 
         setTitle("Connect Four");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,18 +23,22 @@ public class Board_class extends JFrame {
         boardButtons = new CircularButton[ROWS][COLS];
 
         JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(Color.BLACK);
 
         JPanel boardPanel = new JPanel(new GridLayout(ROWS, COLS));
+        boardPanel.setBackground(Color.BLUE);
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
+            	
+                
             	boardButtons[row][col] = new CircularButton();
                
                 ((CircularButton) boardButtons[row][col]).setColor(Color.WHITE);
-                boardButtons[row][col].setOpaque(true);
+                //boardButtons[row][col].setOpaque(true);
                 boardButtons[row][col].setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
 
-                boardButtons[row][col].setEnabled(false);
+                //boardButtons[row][col].setEnabled(false);
                 boardPanel.add(boardButtons[row][col]);
             }
         }
@@ -76,7 +81,7 @@ public class Board_class extends JFrame {
                 	boardButtons[ROWS - i - 1][j].setBackground(Color.RED);
                 
                 } else if (board[i][j] == 2) {
-                	((CircularButton)boardButtons[ROWS - i - 1][j]).setBackground(Color.BLUE);
+                	((CircularButton)boardButtons[ROWS - i - 1][j]).setBackground(Color.YELLOW);
                 
                 } else if (board[i][j]==3) {
                 	((CircularButton) boardButtons[ROWS - i - 1][j]).setBackground(Color.red);
@@ -84,7 +89,7 @@ public class Board_class extends JFrame {
                 	onWin();
                 
                 } else if (board[i][j]==4) {
-                	((CircularButton) boardButtons[ROWS - i - 1][j]).setBackground(Color.blue);
+                	((CircularButton) boardButtons[ROWS - i - 1][j]).setBackground(Color.YELLOW);
                 	setTitle("Player 2 wins");
                 	onWin();
                 } else if (board[i][j] != 0) {
